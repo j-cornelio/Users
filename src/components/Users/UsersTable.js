@@ -62,11 +62,49 @@ const USERS = {
   ]
 };
 
+const SortOptions = ({ alpha }) => {
+	// const handleAlpha = (e) => {
+	// 	alpha(e.target.)
+	// }
+
+	return (
+		<div>
+			<button onClick={alpha}>alphabetical</button>
+		</div>
+	)
+};
+
 class UsersTable extends Component {
+	constructor(props){
+		super(props);
+		this.state = {
+			users: USERS.data
+		}
+  		this.alpha = this.alpha.bind(this);
+  		this.priority = this.priority.bind(this);
+  		this.default = this.default.bind(this);
+	}
+
+	default(){
+		console.log('default: ')
+	}
+
+	alpha(){
+		const sorted = this.state.users.sort((a, b) => a.name < b.name ? -1 : 1);
+		this.setState((prevState) => ({users: sorted}))
+	}
+
+	priority(){
+		console.log('priority: ')
+	}
+
 	render() {
+		const { users } = this.state;
+		console.log(users)
 		return (
 			<div>
-				<Table users={USERS.data} />
+				<SortOptions alpha={this.alpha} />
+				<Table users={users} />
 			</div>
 		)
 	}

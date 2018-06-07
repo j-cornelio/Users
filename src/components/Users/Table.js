@@ -1,5 +1,21 @@
 import React      		from 'react';
-
+        
+const TableHeader = () => (
+    <thead>
+      <tr>
+        <th>Age</th>
+        <th>Name</th>
+        <th>Category</th>
+      </tr>
+    </thead>
+);//
+        
+const TableBody = ({ users }) => (
+	<tbody>
+		{users.map( user => <TableRows key={user.name} {...user} /> )}
+	</tbody>
+);//
+        
 const TableRows = ({ age, name, category }) => (
     <tr>
     	<td>{age}</td>
@@ -11,9 +27,8 @@ const TableRows = ({ age, name, category }) => (
 
 const Table = ({ users }) => (
     <table>
-    	<tbody>
-    		{users.map( user => <TableRows key={user.name} {...user} />)}
-    	</tbody>
+    	<TableHeader />
+    	<TableBody users={users} />
     </table>
 );
 
