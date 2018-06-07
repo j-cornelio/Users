@@ -1,9 +1,4 @@
-import React, { Component } from 'react';
-//import users from '../../json/users';
-import Table from './Table';
-
-
-const USERS = {
+{
   "data": [
     {
       "name":  "Jerry",
@@ -60,16 +55,4 @@ const USERS = {
       "category": "two"
     }
   ]
-};
-
-class UsersTable extends Component {
-	render() {
-		return (
-			<div>
-				<Table users={USERS.data} />
-			</div>
-		)
-	}
 }
-
-export default UsersTable;
