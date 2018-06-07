@@ -122,3 +122,7 @@ class UsersTable extends Component {
 }
 
 export default UsersTable;
+
+FilterOptions.defaultProps  = {
+	USERS: {},
+}

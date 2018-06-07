@@ -1,29 +1,6 @@
-import React from 'react';
-        
-const TableHeader = () => (
-    <thead>
-      <tr>
-        <th>Age</th>
-        <th>Name</th>
-        <th>Category</th>
-      </tr>
-    </thead>
-);//
-        
-const TableBody = ({ users }) => (
-	<tbody>
-		{users.map( user => <TableRows key={user.name} {...user} /> )}
-	</tbody>
-);//
-        
-const TableRows = ({ age, name, category }) => (
-    <tr>
-    	<td>{age}</td>
-    	<td>{name}</td>
-    	<td>{category}</td>
-    </tr>
-);
-
+import React 			from 'react';
+import TableHeader 	from './TableHeader';     
+import TableBody 	from './TableBody';        
 
 const Table = ({ users }) => (
     <table>
