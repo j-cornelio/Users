@@ -62,17 +62,13 @@ const USERS = {
   ]
 };
 
-const SortOptions = ({ alpha }) => {
-	// const handleAlpha = (e) => {
-	// 	alpha(e.target.)
-	// }
-
-	return (
-		<div>
-			<button onClick={alpha}>alphabetical</button>
-		</div>
-	)
-};
+const SortOptions = ({ alpha, defaultFunc, priority }) => (
+	<div>
+		<button onClick={defaultFunc}>default</button>
+		<button onClick={alpha}>alphabetical</button>
+		<button onClick={priority}>priority</button>
+	</div>
+)
 
 class UsersTable extends Component {
 	constructor(props){
@@ -86,16 +82,21 @@ class UsersTable extends Component {
 	}
 
 	default(){
-		console.log('default: ')
+		this.setState((prevState) => ({users: USERS.data}));
 	}
 
 	alpha(){
-		const sorted = this.state.users.sort((a, b) => a.name < b.name ? -1 : 1);
-		this.setState((prevState) => ({users: sorted}))
+		const sorted = [...this.state.users]
+						.sort((a, b) => a.name < b.name ? -1 : 1);
+
+		this.setState((prevState) => ({users: sorted}));
 	}
 
 	priority(){
-		console.log('priority: ')
+		const sorted = [...this.state.users]
+						.sort((a, b) => a.priority < b.priority ? -1 : 1);
+
+		this.setState((prevState) => ({users: sorted}));
 	}
 
 	render() {
@@ -103,7 +104,7 @@ class UsersTable extends Component {
 		console.log(users)
 		return (
 			<div>
-				<SortOptions alpha={this.alpha} />
+				<SortOptions alpha={this.alpha} defaultFunc={this.default} priority={this.priority} />
 				<Table users={users} />
 			</div>
 		)
