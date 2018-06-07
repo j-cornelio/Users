@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import users from '../../json/users';
 import Table 			from './Table';
 import SortOptions 		from './SortOptions';
+import FilterOptions 		from './FilterOptions';
 
 
 const USERS = {
@@ -62,26 +63,6 @@ const USERS = {
     }
   ]
 };
-
-const FilterOptions = ({ priority, handleFilter }) => {
-	const filter = (e) => handleFilter(e.target.value);
-
-	return (
-		<div>	
-			<div>Filter by Category</div>				 	
-			<form>
-				{
-					 priority.map( elem => (
-					 	<span key={elem}>
-					 		<input type="radio" id="contactChoice1" onClick={filter} name="priority" value={elem} />
-						    <label>{elem}</label>
-					    </span> 
-					 ))
-				}
-			</form>
-		</div>
-	)
-};//
 
 class UsersTable extends Component {
 	constructor(props){
