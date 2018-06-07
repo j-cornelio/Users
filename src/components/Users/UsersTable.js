@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import users from '../../json/users';
-import Table from './Table';
+import Table 			from './Table';
+import SortOptions 		from './SortOptions';
 
 
 const USERS = {
@@ -62,34 +63,19 @@ const USERS = {
   ]
 };
 
-const SortOptions = ({ alpha, defaultFunc, priority }) => (
-	<div>
-		<button onClick={defaultFunc}>default</button>
-		<button onClick={alpha}>alphabetical</button>
-		<button onClick={priority}>priority</button>
-	</div>
-)
+const FilterOptions = ({ priority, handleFilter }) => {
+	const filter = (e) => handleFilter(e.target.value);
 
-
-		 // <input type="radio" id="contactChoice1"
-		 //     name="contact" value="email" />
-		 //    <label for="contactChoice1">Email</label>
-
-const FilterOptions = ({ users, handleFilter }) => {
-	console.log('form: ', users);
-	const unique =  users.map(el => el.category)
-						 .filter((el, idx, array) => array.indexOf(el) === idx)
-	console.log(unique)
 	return (
 		<div>	
-			<p>Filter by Priority</p>				 	
+			<div>Filter by Category</div>				 	
 			<form>
 				{
-					 unique.map( elem => (
+					 priority.map( elem => (
 					 	<span key={elem}>
-					 		<input type="radio" id="contactChoice1" name="priority" value={elem} /> 
+					 		<input type="radio" id="contactChoice1" onClick={filter} name="priority" value={elem} />
 						    <label>{elem}</label>
-					    </span>
+					    </span> 
 					 ))
 				}
 			</form>
@@ -101,12 +87,20 @@ class UsersTable extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			users: USERS.data
+			users: USERS.data,
+			priority: []
 		}
   		this.alpha 			= this.alpha.bind(this);
   		this.priority 		= this.priority.bind(this);
   		this.default 		= this.default.bind(this);
   		this.handleFilter 	= this.handleFilter.bind(this);
+	}
+
+	componentDidMount(){
+		const priority =  USERS.data.map(el => el.category)
+						 .filter((el, idx, array) => array.indexOf(el) === idx)
+		
+		this.setState((prevState) => ({ priority }));		
 	}
 
 	default(){
@@ -127,16 +121,18 @@ class UsersTable extends Component {
 		this.setState((prevState) => ({users: sorted}));
 	}
 
-	handleFilter(){
-		console.log('filter')
+	handleFilter(val){
+		const filtered = USERS.data.filter( user => user.category.includes(val) );
+		
+		this.setState((prevState) => ({users: filtered}))
 	}
 
 	render() {
-		const { users } = this.state;
+		const { users, priority } = this.state;
 
 		return (
 			<div>
-				<FilterOptions users={users} />
+				<FilterOptions priority={priority} handleFilter={this.handleFilter} />
 				<SortOptions alpha={this.alpha} defaultFunc={this.default} priority={this.priority} />
 				<Table users={users} />
 			</div>
