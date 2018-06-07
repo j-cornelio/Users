@@ -1,8 +1,8 @@
 import React      		from 'react';
-import UsersTable   	from '../components/UsersTable';
+import UsersTable   	from '../components/Users/UsersTable';
 
-const UsesTrable = () => (
+const UsersPage = () => (
     <UsersTable />
 );
 
-export default UsesTrable;
+export default UsersPage;
